@@ -28,7 +28,7 @@ CONSTRUCT {
 	doap:homepage ?lien_cordis;
 	dcat:keyword ?mots_cles;
 	org:linkedTo ?URI2;
-	dbo:locationCountry ?test.
+	dbo:locationCountry ?pays.
 ?URI2 rdf:type dbo:Organisation;
 	?URI5 ?identifiant_de_partenaire;
 	rdfs:label ?libelle_de_partenaire;
@@ -52,8 +52,9 @@ WHERE {
   BIND (xsd:float(?montantF) AS ?montant)
   BIND (URI(CONCAT('http://ex.org/Participants/', ?sigle_de_partenaire)) AS ?URI2)
   BIND (URI(CONCAT('http://ex.org/Participants/Type/', ?type_de_partenaire)) AS ?URI3)
-  ?separation apf:strSplit(?pays_du_partenaire ";")
-  BIND (URI(CONCAT('http://dbpedia.org/page/', ?separation)) AS ?test)
+  BIND(IF(bound(?code_pays),?code_pays,"null") AS ?test)
+  ?separation apf:strSplit(?test ";")
+  BIND(IF(?separation = "null",?nothing,URI(CONCAT('http://dbpedia.org/page/', ?separation))) AS ?pays)
   BIND (URI(CONCAT('http://ex.org/ontology/', ?type_d_identifiant)) AS ?URI5)
   BIND (URI(CONCAT('http://ex.org/Projet/Appel/', ?appel_a_projet)) AS ?URI6)
   BIND (URI('http://ex.org/ontology/Appel_Projet') AS ?URI7)
