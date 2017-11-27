@@ -27,12 +27,12 @@ CONSTRUCT {
 	?URI8 ?code_rcn;
 	doap:homepage ?lien_cordis;
 	dcat:keyword ?mots_cles;
-	org:linkedTo ?URI2;
-	dbo:locationCountry ?pays.
+	org:linkedTo ?URI2.
 ?URI2 rdf:type dbo:Organisation;
 	?URI5 ?identifiant_de_partenaire;
 	rdfs:label ?libelle_de_partenaire;
-	dbo:type ?URI3.
+	dbo:type ?URI3;
+	dbo:locationCountry ?pays.
 ?URI3 rdf:type owl:Thing;
 	rdfs:label ?type_de_partenaire;
 	frapo:hasCode ?code_du_type_de_partenaire.
