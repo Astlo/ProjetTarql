@@ -40,7 +40,7 @@ CONSTRUCT {
 	frapo:hasCode ?code_pays.
 ?URI6 rdf:type owl:Class;
 	rdfs:label ?appel_a_projet;
-	rfrapo:hasCode ?code_d_appel_a_projet.
+	frapo:hasCode ?code_d_appel_a_projet.
 ?URI5 rdf:type owl:DatatypeProperty.
 ?URI7 rdf:type owl:DatatypeProperty.
 ?URI8 rdf:type owl:DatatypeProperty;
