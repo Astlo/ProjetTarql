@@ -52,7 +52,7 @@ WHERE {
   BIND (xsd:float(?montantF) AS ?montant)
   BIND (URI(CONCAT('http://ex.org/Participants/', ?sigle_de_partenaire)) AS ?URI2)
   BIND (URI(CONCAT('http://ex.org/Participants/Type/', ?type_de_partenaire)) AS ?URI3)
-  BIND(IF(bound(?code_pays),?code_pays,"null") AS ?test)
+  BIND(IF(bound(?pays_du_partenaire),?pays_du_partenaire,"null") AS ?test)
   ?separation apf:strSplit(?test ";")
   BIND(IF(?separation = "null",?nothing,URI(CONCAT('http://dbpedia.org/page/', ?separation))) AS ?pays)
   BIND (URI(CONCAT('http://ex.org/ontology/', ?type_d_identifiant)) AS ?URI5)
