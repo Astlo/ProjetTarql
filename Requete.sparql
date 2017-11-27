@@ -1,0 +1,24 @@
+PREFIX dbp: <http://dbpedia.org/property/>
+PREFIX doap: <http://usefulinc.com/ns/doap#>
+PREFIX time: <https://www.w3.org/2006/time#>
+
+SELECT ?titre ?duree ?montant
+FROM <csv.csv>
+WHERE {
+?x doap:name      ?titre;
+     time:Duration ?duree;
+     dbp:number    ?montant.
+	BIND((?montant/?duree) AS ?rapport)
+}
+ORDER BY DESC(?rapport)
+LIMIT 100
+
+SELECT ?titre
+FROM <csv.csv>
+WHERE {
+?x doap:name      ?titre;
+	BIND( (year(?date_de_fin) - year(?date_de_debut))*12 + month(?date_de_fin) - month(?date_de_debut) AS ?Mois_effectif)
+	BIND (?Mois_effectif - ?duree AS ?difference )
+}
+ORDER BY ?difference
+LIMIT 100
