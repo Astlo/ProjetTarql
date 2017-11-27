@@ -1,0 +1,16 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX frapo: <http://purl.org/cerif/frapo/>
+PREFIX apf: <http://jena.apache.org/ARQ/property#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+CONSTRUCT {
+?URI rdf:type doap:Project;
+	frapo:hasCode ?code_du_projet;
+	frapo:hasCode ?test.
+}
+FROM <file:test.csv>
+WHERE {
+  BIND (URI(CONCAT('http://ex.org/Projet/', ?titre)) AS ?URI)
+  BIND (xsd:integer(?Id) AS ?code_du_projet)
+  ?test apf:strSplit(?code_pays ";")
+}
