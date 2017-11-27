@@ -10,6 +10,7 @@ PREFIX org: <https://www.w3.org/ns/org#>
 PREFIX time: <https://www.w3.org/2006/time#>
 PREFIX owl: <https://www.w3.org/2002/07/owl#>
 PREFIX frapo: <http://purl.org/cerif/frapo/>
+PREFIX apf: <http://jena.apache.org/ARQ/property#>
 
 CONSTRUCT {
 ?URI rdf:type doap:Project;
@@ -26,18 +27,15 @@ CONSTRUCT {
 	?URI8 ?code_rcn;
 	doap:homepage ?lien_cordis;
 	dcat:keyword ?mots_cles;
-	org:linkedTo ?URI2.
+	org:linkedTo ?URI2;
+	dbo:locationCountry ?test.
 ?URI2 rdf:type dbo:Organisation;
 	?URI5 ?identifiant_de_partenaire;
 	rdfs:label ?libelle_de_partenaire;
-	dbo:type ?URI3;
-	dbo:locationCountry ?URI4.
+	dbo:type ?URI3.
 ?URI3 rdf:type owl:Thing;
 	rdfs:label ?type_de_partenaire;
 	frapo:hasCode ?code_du_type_de_partenaire.
-?URI4 rdf:type dbo:PopulatedPlace;
-	rdfs:label ?pays_du_partenaire;
-	frapo:hasCode ?code_pays.
 ?URI6 rdf:type owl:Class;
 	rdfs:label ?appel_a_projet;
 	frapo:hasCode ?code_d_appel_a_projet.
@@ -49,14 +47,15 @@ CONSTRUCT {
 FROM <file:csv.csv>
 WHERE {
   BIND (URI(CONCAT('http://ex.org/Projet/', ?titre)) AS ?URI)
+  BIND (xsd:integer(?Id) AS ?code_du_projet)
+  BIND (xsd:integer(?dureeInt) AS ?duree)
+  BIND (xsd:float(?montantF) AS ?montant)
   BIND (URI(CONCAT('http://ex.org/Participants/', ?sigle_de_partenaire)) AS ?URI2)
   BIND (URI(CONCAT('http://ex.org/Participants/Type/', ?type_de_partenaire)) AS ?URI3)
-  BIND (URI(CONCAT('http://ex.org/Participants/Nationalite/', ?pays_du_partenaire)) AS ?URI4)
+  ?separation apf:strSplit(?pays_du_partenaire ";")
+  BIND (URI(CONCAT('http://dbpedia.org/page/', ?separation)) AS ?test)
   BIND (URI(CONCAT('http://ex.org/ontology/', ?type_d_identifiant)) AS ?URI5)
   BIND (URI(CONCAT('http://ex.org/Projet/Appel/', ?appel_a_projet)) AS ?URI6)
   BIND (URI('http://ex.org/ontology/Appel_Projet') AS ?URI7)
   BIND (URI('http://ex.org/ontology/Code_RCN') AS ?URI8)
-  BIND (xsd:integer(?Id) AS ?code_du_projet)
-  BIND (xsd:integer(?dureeInt) AS ?duree)
-  BIND (xsd:float(?montantF) AS ?montant)
 }

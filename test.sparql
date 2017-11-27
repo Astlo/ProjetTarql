@@ -2,15 +2,19 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX frapo: <http://purl.org/cerif/frapo/>
 PREFIX apf: <http://jena.apache.org/ARQ/property#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX doap: <http://usefulinc.com/ns/doap#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
 
 CONSTRUCT {
 ?URI rdf:type doap:Project;
 	frapo:hasCode ?code_du_projet;
-	frapo:hasCode ?test.
+	dbo:locationCountry ?test4.
 }
 FROM <file:test.csv>
 WHERE {
-  BIND (URI(CONCAT('http://ex.org/Projet/', ?titre)) AS ?URI)
+  BIND (URI(CONCAT('http://ex.org/Projet/', ?code_du_projet)) AS ?URI)
   BIND (xsd:integer(?Id) AS ?code_du_projet)
-  ?test apf:strSplit(?code_pays ";")
+  BIND(IF(bound(?code_pays),?code_pays,"null") AS ?test3)
+  ?test2 apf:strSplit(?test3 ";")
+  BIND(IF(?test2 = "null",?nothing,URI(CONCAT('http://dbpedia.org/page/', ?test2))) AS ?test4)
 }
