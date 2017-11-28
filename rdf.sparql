@@ -28,11 +28,6 @@ CONSTRUCT {
 	doap:homepage ?lien_cordis;
 	dcat:keyword ?mots_cles;
 	org:linkedTo ?URI2.
-?URI2 rdf:type dbo:Organisation;
-	?URI5 ?identifiant_de_partenaire;
-	rdfs:label ?libelle_de_partenaire;
-	dbo:type ?URI3;
-	dbo:locationCountry ?pays.
 ?URI3 rdf:type owl:Thing;
 	rdfs:label ?type_de_partenaire;
 	frapo:hasCode ?code_du_type_de_partenaire.
@@ -43,18 +38,23 @@ CONSTRUCT {
 ?URI7 rdf:type owl:DatatypeProperty.
 ?URI8 rdf:type owl:DatatypeProperty;
 	rdfs:range xsd:nonNegativeInteger.
+?URI2 rdf:type dbo:Organisation;
+	?URI5 ?identifiant_de_partenaire;
+	rdfs:label ?libelle_de_partenaire;
+	dbo:type ?URI3;
+	dbo:locationCountry ?pays.
 }
 FROM <file:csv.csv>
 WHERE {
-  BIND (URI(CONCAT('http://ex.org/Projet/', ?titre)) AS ?URI)
+  BIND (URI(CONCAT('http://ex.org/Projet/', ?code_du_projet)) AS ?URI)
   BIND (xsd:integer(?Id) AS ?code_du_projet)
   BIND (xsd:integer(?dureeInt) AS ?duree)
   BIND (xsd:float(?montantF) AS ?montant)
   BIND (URI(CONCAT('http://ex.org/Participants/', ?sigle_de_partenaire)) AS ?URI2)
-  BIND (URI(CONCAT('http://ex.org/Participants/Type/', ?type_de_partenaire)) AS ?URI3)
   BIND(IF(bound(?pays_du_partenaire),?pays_du_partenaire,"null") AS ?test)
   ?separation apf:strSplit(?test ";")
   BIND(IF(?separation = "null",?nothing,URI(CONCAT('http://dbpedia.org/page/', ?separation))) AS ?pays)
+  BIND (URI(CONCAT('http://ex.org/Participants/Type/', ?type_de_partenaire)) AS ?URI3)
   BIND (URI(CONCAT('http://ex.org/ontology/', ?type_d_identifiant)) AS ?URI5)
   BIND (URI(CONCAT('http://ex.org/Projet/Appel/', ?appel_a_projet)) AS ?URI6)
   BIND (URI('http://ex.org/ontology/Appel_Projet') AS ?URI7)

@@ -15,6 +15,6 @@ WHERE {
   BIND (URI(CONCAT('http://ex.org/Projet/', ?code_du_projet)) AS ?URI)
   BIND (xsd:integer(?Id) AS ?code_du_projet)
   BIND(IF(bound(?code_pays),?code_pays,"null") AS ?test3)
-  ?test2 apf:strSplit(?test3 ";")
-  BIND(IF(?test2 = "null",?nothing,URI(CONCAT('http://dbpedia.org/page/', ?test2))) AS ?test4)
+  ?separation apf:strSplit(?test3 ";")
+  BIND(IF(?separation = "null",?nothing,URI(CONCAT('http://dbpedia.org/page/', ?separation))) AS ?test4)
 }
