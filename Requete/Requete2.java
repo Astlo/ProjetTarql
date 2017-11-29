@@ -4,9 +4,9 @@ import org.apache.jena.query.* ;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.util.FileManager;
 
-public class Api {
+public class Requete2 {
 
-    static final String inputFileName  = "vc2.ttl";
+    static final String inputFileName  = "donnees.ttl";
 	
     public static void main (String args[]) {
     	Model model = ModelFactory.createDefaultModel();
@@ -17,9 +17,13 @@ public class Api {
         }
         
         // read the RDF/XML file
-        model.read(in, null, "N-Triples");
+        model.read(in, null, "Turtle");
     	
-    	String queryString = "SELECT ?person ?name { ?x <http://www.w3.org/2001/vcard-rdf/3.0#Given> ?name; <http://www.w3.org/2001/vcard-rdf/3.0#Family> ?person}" ;
+    	String queryString = "SELECT ?titre { "
+    			+ "?x <http://usefulinc.com/ns/doap#name> ?titre; "
+    			+ "BIND( (year(?date_de_fin) - year(?date_de_debut))*12 + month(?date_de_fin) - month(?date_de_debut) AS ?Mois_effectif)"
+    			+ "BIND (?Mois_effectif - ?duree AS ?difference ) }"
+    			+ "ORDER BY ?difference LIMIT 100" ;
     	Query query = QueryFactory.create(queryString) ;
     	try (QueryExecution qexec = QueryExecutionFactory.create(query, model)) {
     		ResultSet results = qexec.execSelect() ;
