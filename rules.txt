@@ -1,0 +1,20 @@
+@prefix rdfs:  <https://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+
+[ruleHasStudent: (?s :hasClass ?c) (?p :teaches ?c) -> (?p :hasStudent ?s)]
+
+[ruleRDF1: (?u ?a ?y) -> (?a rdf:type rdf:Property)]
+[ruleRDFS2: (?a rdfs:domain ?x) (?u ?a ?y) -> (?u rdf:type ?x)]
+[ruleRDFS3: (?a rdfs:range ?x) (?u ?a ?v) -> (?v rdf:type ?x)]
+[ruleRDFS4a: (?u ?a ?x) -> (?u rdf:type rdfs:Resource)]
+[ruleRDFS4b: (?u ?a ?v) -> (?v rdf:type rdfs:Resource)]
+[ruleRDFS5: (?u rdfs:subPropertyOf ?v) (?v rdfs:subPropertyOf ?x) -> (?u rdfs:subPropertyOf ?x)]
+[ruleRDFS6: (?u rdf:type rdf:Property) -> (?u rdfs:subPropertyOf ?u)]
+[ruleRDFS7: (?a rdfs:subPropertyOf ?b) (?u ?a ?y) -> (?u ?b ?y)]
+[ruleRDFS8: (?u rdf:type rdfs:Class) -> (?u rdfs:subClassOf rdfs:Resource)]
+[ruleRDFS9: (?u rdfs:subClassOf ?x) (?v rdf:type ?u) -> (?v rdf:type ?x)]
+[ruleRDFS10: (?u rdf:type rdfs:Class) -> (?u rdfs:subClassOf ?u)]
+[ruleRDFS11: (?u rdfs:subClassOf ?v) (?v rdfs:subClassOf ?x) -> (?u rdfs:subClassOf ?x)]
+[ruleRDFS12: (?u rdf:type ?v) (?v rdfs:subPropertyOf ?x) -> (?u rdfs:subPropertyOf ?x)]
+[ruleRDFS13: (?u rdf:type rdfs:Datatype) -> (?u rdfs:subClassOf rdfs:Literal)]
