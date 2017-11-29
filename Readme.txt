@@ -1,1 +1,1 @@
-Launch : tarql -e utf-8 --delimiter semicolon --dedup 1000000 rdf.sparql > donnees.rdf
+Launch : tarql -e utf-8 --delimiter semicolon --dedup 1000000 rdf.sparql > donnees.ttl
