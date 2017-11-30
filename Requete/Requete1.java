@@ -19,11 +19,13 @@ public class Requete1 {
         // read the RDF/XML file
         model.read(in, null, "Turtle");
     	
-    	String queryString = "SELECT ?titre ?duree ?montant { "
+    	String queryString = "SELECT ?titre ?duree ?montant ?rapport { "
     			+ "?x <http://usefulinc.com/ns/doap#name> ?titre; "
     			+ "<https://www.w3.org/2006/time#Duration> ?duree;"
     			+ "<http://purl.org/cerif/frapo/BudgetedAmount> ?montant."
-    			+ "BIND((?montant/?duree) AS ?rapport) }"
+                + "BIND (<http://www.w3.org/2001/XMLSchema#integer>(?duree) AS ?duree2)"
+                + "BIND (<http://www.w3.org/2001/XMLSchema#float>(?montant) AS ?montant2)"
+    			+ "BIND (<http://www.w3.org/2001/XMLSchema#decimal>(?montant2/?duree2) AS ?rapport) }"
     			+ "ORDER BY DESC(?rapport) LIMIT 100" ;
     	Query query = QueryFactory.create(queryString) ;
     	try (QueryExecution qexec = QueryExecutionFactory.create(query, model)) {
