@@ -23,8 +23,8 @@ public class Requete2 {
                 + "?x <http://usefulinc.com/ns/doap#name> ?titre;"
                 + "<https://www.w3.org/2006/time#HasBeginning> ?date_de_debut;"
                 + "<https://www.w3.org/2006/time#hasEnd> ?date_de_fin."
-                + "BIND ((year (?date_de_fin) - year (?date_de_debut))*12 + month (?date_de_fin) - month (?date_de_debut) AS ?mois_effectif)"
-                + "BIND (?mois_effectif - ?duree AS ?difference )"
+                + "BIND ((year (<http://www.w3.org/2001/XMLSchema#date>(?date_de_fin)) - year (<http://www.w3.org/2001/XMLSchema#date>(?date_de_debut)))*12 + month (<http://www.w3.org/2001/XMLSchema#date>(?date_de_fin)) - month (<http://www.w3.org/2001/XMLSchema#date>(?date_de_debut)) AS ?mois_effectif)"
+                + "BIND (?mois_effectif - ?duree AS ?difference )}"
                 + "ORDER BY ?difference LIMIT 100" ;
         Query query = QueryFactory.create(queryString) ;
         try (QueryExecution qexec = QueryExecutionFactory.create(query, model)) {
