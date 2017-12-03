@@ -21,11 +21,19 @@ public class Requete2 {
         
         String queryString = "SELECT ?titre ?difference { "
                 + "?x <http://usefulinc.com/ns/doap#name> ?titre;"
-                + "<https://www.w3.org/2006/time#HasBeginning> ?date_de_debut;"
-                + "<https://www.w3.org/2006/time#hasEnd> ?date_de_fin."
-                + "BIND ((year (<http://www.w3.org/2001/XMLSchema#date>(?date_de_fin)) - year (<http://www.w3.org/2001/XMLSchema#date>(?date_de_debut)))*12 + month (<http://www.w3.org/2001/XMLSchema#date>(?date_de_fin)) - month (<http://www.w3.org/2001/XMLSchema#date>(?date_de_debut)) AS ?mois_effectif)"
-                + "BIND (?mois_effectif - ?duree AS ?difference )}"
-                + "ORDER BY ?difference LIMIT 100" ;
+                + "<https://www.w3.org/2006/time#hasBeginning> ?date_de_debut;"
+                + "<https://www.w3.org/2006/time#hasEnd> ?date_de_fin;"
+                + "<https://www.w3.org/2006/time#Duration> ?duree."
+                + "BIND( strbefore( ?date_de_debut, \"-\" ) as ?anneeDebut )"
+                + "BIND( strbefore( ?date_de_fin, \"-\" ) as ?anneeFin )"
+                + "BIND( strafter( ?date_de_debut, \"-\" ) as ?moisjourDebut )"
+                + "BIND( strafter( ?date_de_fin, \"-\" ) as ?moisjourFin )"
+                + "BIND( strbefore( ?moisjourDebut, \"-\" ) as ?moisDebut )"
+                + "BIND( strbefore( ?moisjourFin, \"-\" ) as ?moisFin )"
+                + "BIND((<http://www.w3.org/2001/XMLSchema#integer>(?anneeFin) - <http://www.w3.org/2001/XMLSchema#integer>(?anneeDebut))*12 + <http://www.w3.org/2001/XMLSchema#integer>(?moisFin) - <http://www.w3.org/2001/XMLSchema#integer>(?moisDebut) AS ?mois_effectif)"
+                + "BIND((<http://www.w3.org/2001/XMLSchema#integer>(?duree) - ?mois_effectif) AS ?difference )"
+                + "}"
+                + "ORDER BY desc(?difference) LIMIT 100" ;
         Query query = QueryFactory.create(queryString) ;
         try (QueryExecution qexec = QueryExecutionFactory.create(query, model)) {
             ResultSet results = qexec.execSelect() ;
