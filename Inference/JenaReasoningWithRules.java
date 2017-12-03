@@ -6,7 +6,6 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.reasoner.rulesys.GenericRuleReasoner;
-import org.apache.jena.reasoner.rulesys.RDFSRuleReasoner;
 import org.apache.jena.reasoner.rulesys.Rule;
 
 import org.apache.jena.rdf.model.*;
@@ -18,7 +17,7 @@ public class JenaReasoningWithRules
 		Model model = ModelFactory.createDefaultModel();
 		model.read( "donnees.ttl" );
 		
-		RDFSRuleReasoner reasoner = (RDFSRuleReasoner) new GenericRuleReasoner( Rule.rulesFromURL( "rules.txt" ) );
+		GenericRuleReasoner reasoner = new GenericRuleReasoner( Rule.rulesFromURL( "rules.txt" ) );
 		
 		InfModel infModel = ModelFactory.createInfModel( reasoner, model );
  
