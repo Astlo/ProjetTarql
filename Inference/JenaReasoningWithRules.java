@@ -1,14 +1,10 @@
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.Property;
-import org.apache.jena.rdf.model.RDFNode;
-import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.Statement;
-import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.reasoner.rulesys.GenericRuleReasoner;
 import org.apache.jena.reasoner.rulesys.Rule;
-
 import org.apache.jena.rdf.model.*;
+
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.File;
 
 public class JenaReasoningWithRules
 {
@@ -22,16 +18,22 @@ public class JenaReasoningWithRules
 		InfModel infModel = ModelFactory.createInfModel( reasoner, model );
  
 		StmtIterator it = infModel.listStatements();
-		
-		while ( it.hasNext() )
-		{
-			Statement stmt = it.nextStatement();
-			
-			Resource subject = stmt.getSubject();
-			Property predicate = stmt.getPredicate();
-			RDFNode object = stmt.getObject();
- 
-			System.out.println( subject.toString() + " " + predicate.toString() + " " + object.toString() );
-		}
+		try{
+			File ff=new File("resultat.txt");
+			ff.createNewFile();
+			FileWriter ffw=new FileWriter(ff);
+			while ( it.hasNext() )
+			{
+				Statement stmt = it.nextStatement();
+				
+				Resource subject = stmt.getSubject();
+				Property predicate = stmt.getPredicate();
+				RDFNode object = stmt.getObject();
+				ffw.write( subject.toString() + " " + predicate.toString() + " " + object.toString());  // écrire une ligne dans le fichier resultat.txt
+				ffw.write("\n"); // forcer le passage à la ligne
+			}
+
+		ffw.close(); // fermer le fichier à la fin des traitements
+		} catch (Exception e) {}
 	}
 }
