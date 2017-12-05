@@ -24,9 +24,9 @@
                     void:exampleResource     <http://ex.org/Participants/Type/;;;;;;;Entreprise%20de%20taille%20interm%C3%A9diaire;;;;;;;;>;
                     
 :Horizon20toPCRDT   a                        void:Linkset ;
-					void:target				 :Horizon20
-					void:target				 datas_samy_romain;
-					void:linkedPredicate     owl:sameAs;
+					void:target				 :Horizon20;
+					void:target				 :datas_samy_romain;
+					void:linkedPredicate     owl:sameAs.
 
 :Univ_Nantes        a                        foaf:Organization;
                     rdfs:label               "Université de Nantes";
@@ -43,9 +43,3 @@
 :Fortin_Guillaume   a                        foaf:Person;
                     rdfs:label               "Guillaume Fortin";
                     foaf:mbox                <guillaume.fortin@etu.univ-nantes.fr>.
-
-:cpr                a                        void:Linkset ;
-                    void:target              datas_loic;
-                    void:target              datas_hippo;
-                    void:target              datas_ivan;
-					void:linkedPredicate     owl:sameAs.
