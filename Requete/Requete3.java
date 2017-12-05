@@ -32,13 +32,16 @@ public class Requete3 {
 	    			+ "} UNION {"
 	    				+ "GRAPH ?g {"
 	    					+ "?x <http://purl.org/cerif/frapo/budgetedAmount> ?money;"
-	    					+ "<http://dbpedia.org/ontology/Location> ?pays;"
+		    				+ "<https://www.w3.org/ns/org#linkedTo> ?y;"
+	    					+ "<https://www.w3.org/2006/time#hasBeginning> ?anneeDebut."
+	    					+ "?y <http://dbpedia.org/ontology/locationCountry> ?pays;"
 	    					+ "<https://www.w3.org/2006/time#hasBeginning> ?anneeDebut."
 		                    + "BIND(<http://www.w3.org/2001/XMLSchema#float>(?money) AS ?money2)"
 	    				+ "}"
 	    			+ "}"
     			+ "}"
-    			+ "GROUP BY ?anneeDebut ?pays" ;
+    			+ "GROUP BY ?anneeDebut ?pays "
+    			+ "ORDER BY ?anneeDebut ?pays" ;
     	
     	Query query = QueryFactory.create(queryString) ;
     	
