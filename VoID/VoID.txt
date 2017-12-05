@@ -1,0 +1,51 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+:Horizon20          a                        void:Dataset;
+                    dcterms:title            "Appels à projets Horizon 2020 - Projets retenus et participants identifiés";
+                    dcterms:description      "";
+                    void:exampleResource     <http://schema.org/record_id/dde666f267c6a7b9002efd3b9c17584cee143e86>;
+                    void:exampleResource     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+                    foaf:homepage            <http://ex.org/Projet>;
+                    dcterms:contributor      :Univ_Nantes;
+                    dcterms:publisher        :Le_Bars_Yannis;
+                    dcterms:publisher        :Travers_Clement;
+                    dcterms:publisher        :Fortin_Guillaume;
+                    dcterms:created          "2017-10-29"^^xsd:date ;
+                    dcterms:modified         "2017-11-30"^^xsd:date ;
+                    dcterms:license          <http://www.opendatacommons.org/licenses/pddl/> ;
+                    void:feature             <http://www.w3.org/ns/formats/Turtle>;
+                    void:triples             9031;
+                    void:exampleResource     <http://ex.org/Projet/653782>;
+                    void:exampleResource     <http://ex.org/Participants/;;;LLR;;;;;;;;IRFU;;;;>;
+                    void:exampleResource     <http://ex.org/Participants/Type/;;;;;;;Entreprise%20de%20taille%20interm%C3%A9diaire;;;;;;;;>;
+                    
+:Horizon20toPCRDT   a                        void:Linkset ;
+					void:target				 :Horizon20
+					void:target				 datas_samy_romain;
+					void:linkedPredicate     owl:sameAs;
+
+:Univ_Nantes        a                        foaf:Organization;
+                    rdfs:label               "Université de Nantes";
+                    foaf:homepage            <http://www.univ-nantes.fr>.
+
+:Le_Bars_Yannis     a                        foaf:Person;
+                    rdfs:label               "Yannis Le Bars";
+                    foaf:mbox                <yannis.le-bars@etu.univ-nantes.fr>.
+
+:Travers_Clement    a                        foaf:Person;
+                    rdfs:label               "Clément Travers";
+                    foaf:mbox                <clement.travers@etu.univ-nantes.fr>.
+
+:Fortin_Guillaume   a                        foaf:Person;
+                    rdfs:label               "Guillaume Fortin";
+                    foaf:mbox                <guillaume.fortin@etu.univ-nantes.fr>.
+
+:cpr                a                        void:Linkset ;
+                    void:target              datas_loic;
+                    void:target              datas_hippo;
+                    void:target              datas_ivan;
+					void:linkedPredicate     owl:sameAs.
