@@ -21,11 +21,24 @@ public class Requete3 {
 
         Dataset dataset = DatasetFactory.create(dftGraphURI, namedGraphURIs) ;
 
-        String queryString = "SELECT ?x { "
-    			+ "{?x <http://purl.org/cerif/frapo/hasCode> \"661199\"}"
-    			+ "UNION {"
-    			+ "GRAPH ?g"
-    			+ "{?x <http://purl.org/cerif/frapo/hasCode> \"219008\".}}}" ;
+        String queryString = "SELECT ?anneeDebut ?pays (SUM(?money2) AS ?somme) (AVG(?money2) AS ?moyenne) { "
+	    			+ "{"
+	    				+ "?x <http://purl.org/cerif/frapo/BudgetedAmount> ?money;"
+	    				+ "<https://www.w3.org/ns/org#linkedTo> ?y;"
+	    				+ "<https://www.w3.org/2006/time#hasBeginning> ?date_de_debut."
+	    				+ "?y <http://dbpedia.org/ontology/locationCountry> ?pays."
+	                    + "BIND( strbefore( ?date_de_debut, \"-\" ) as ?anneeDebut )"
+	                    + "BIND(<http://www.w3.org/2001/XMLSchema#float>(?money) AS ?money2)"
+	    			+ "} UNION {"
+	    				+ "GRAPH ?g {"
+	    					+ "?x <http://purl.org/cerif/frapo/budgetedAmount> ?money;"
+	    					+ "<http://dbpedia.org/ontology/Location> ?pays;"
+	    					+ "<https://www.w3.org/2006/time#hasBeginning> ?anneeDebut."
+		                    + "BIND(<http://www.w3.org/2001/XMLSchema#float>(?money) AS ?money2)"
+	    				+ "}"
+	    			+ "}"
+    			+ "}"
+    			+ "GROUP BY ?anneeDebut ?pays" ;
     	
     	Query query = QueryFactory.create(queryString) ;
     	
