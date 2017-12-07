@@ -20,7 +20,8 @@ public class Requete2 {
         model.read(in, null, "Turtle");
         
         String queryString = "SELECT ?titre ?difference { "
-                + "?x <http://usefulinc.com/ns/doap#name> ?titre;"
+	    		+ "?x <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://usefulinc.com/ns/doap#Project>;"
+                + "<http://usefulinc.com/ns/doap#name> ?titre;"
                 + "<https://www.w3.org/2006/time#hasBeginning> ?date_de_debut;"
                 + "<https://www.w3.org/2006/time#hasEnd> ?date_de_fin;"
                 + "<https://www.w3.org/2006/time#Duration> ?duree."

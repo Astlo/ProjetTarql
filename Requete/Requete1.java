@@ -20,7 +20,8 @@ public class Requete1 {
         model.read(in, null, "Turtle");
     	
     	String queryString = "SELECT ?titre ?duree ?montant ?rapport { "
-    			+ "?x <http://usefulinc.com/ns/doap#name> ?titre; "
+	    		+ "?x <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://usefulinc.com/ns/doap#Project>;"
+    			+ "<http://usefulinc.com/ns/doap#name> ?titre; "
     			+ "<https://www.w3.org/2006/time#Duration> ?duree;"
     			+ "<http://purl.org/cerif/frapo/BudgetedAmount> ?montant."
                 + "BIND (<http://www.w3.org/2001/XMLSchema#integer>(?duree) AS ?duree2)"
