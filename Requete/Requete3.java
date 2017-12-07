@@ -27,7 +27,7 @@ public class Requete3 {
 	    				+ "<http://purl.org/cerif/frapo/BudgetedAmount> ?money;"
 	    				+ "<https://www.w3.org/ns/org#linkedTo> ?y;"
 	    				+ "<https://www.w3.org/2006/time#hasBeginning> ?date_de_debut."
-	    				+ "?y <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://usefulinc.com/ns/doap#Organisation>;"
+	    				+ "?y <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Organisation>;"
 	    				+ "<http://dbpedia.org/ontology/locationCountry> ?pays."
 	                    + "BIND( strbefore( ?date_de_debut, \"-\" ) as ?anneeDebut )"
 	                    + "BIND(<http://www.w3.org/2001/XMLSchema#float>(?money) AS ?money2)"
