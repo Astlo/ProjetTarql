@@ -32,7 +32,7 @@ CONSTRUCT {
 	doap:homepage ?lien_CORDIS;
 	dcat:keyword ?mots_cles;
 	org:linkedTo ?URI_Partenaire.
-	?URI_Partenaire rdf:type dbo:partenaire;
+	?URI_Partenaire rdf:type dbo:projectParticipant;
 	     rdfs:subClassOf dbp:Agent;
 	     doap:name ?libelle_de_partenaire;
 	     dbo:locationCountry ?pays.
@@ -41,7 +41,7 @@ FROM <file:data.csv>
 WHERE {
 	BIND(URI(CONCAT("https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-aap-fp7-projets-retenus-participants-identifies/", ?code_du_projet)) AS ?URI_PROJECT)
 	BIND(URI(CONCAT("https://data.enseignementsup-recherche.gouv.fr/explore/dataset/appels-a-projets-horizon-2020-projets-retenus-et-participants-identifies/", ?code_du_projet)) AS ?URI_PROJECT_HORIZON)
-	BIND(URI(CONCAT("https://ex.org/partenaire", ?libelle_de_partenaire)) AS ?URI_Partenaire)
+	BIND(URI(CONCAT("https://ex.org/partenaire/", ?libelle_de_partenaire)) AS ?URI_Partenaire)
 	BIND(IF(bound(?pays_du_partenaire),?pays_du_partenaire,"null") AS ?test)
 	?separation apf:strSplit(?test ";")
 	BIND(IF(?separation = "null",?nothing,URI(CONCAT('http://dbpedia.org/page/', ?separation))) AS ?pays)
